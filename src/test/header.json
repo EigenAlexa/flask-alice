@@ -1,0 +1,8 @@
+{
+    "Content-Type":"application/json;charset=UTF-8",
+    "Host":"",
+    "Accept":"application/json",
+    "Accept-Charset":"utf-8",
+    "Signature": "",
+    "SignatureCertChainUrl":"https://s3.amazonaws.com/echo.api/echo-api-cert.pem"
+}
