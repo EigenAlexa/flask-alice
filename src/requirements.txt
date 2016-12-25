@@ -1,3 +1,4 @@
+aiml==0.8.6
 aniso8601==1.2.0
 argcomplete==1.7.0
 awscli==1.11.34

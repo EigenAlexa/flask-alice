@@ -2,10 +2,12 @@ import logging
 from random import randint
 from flask import Flask, render_template
 from flask_ask import Ask, statement, question, session
+from alice import Alice
 
 app = Flask(__name__)
 ask = Ask(app, "/")
 logging.getLogger("flask_ask").setLevel(logging.DEBUG)
+alice = Alice()
 
 @ask.launch
 def new_session():
@@ -14,8 +16,7 @@ def new_session():
 
 @ask.intent("AllIntent", convert={'All': str})
 def next_round(All):
-    response = All # TODO make this interact with the AIML interpretor
-    # reponse = render_template('respond', response=response) # TODO delete if not necessary
+    response = alice.message(All)
     return statement(response) # TODO make a handler to detect whether a question has been asked
 
 if __name__ == '__main__':

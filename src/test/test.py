@@ -10,7 +10,6 @@ DIR = os.path.dirname(os.path.realpath(__file__)) + '/'
 with open(DIR + 'request.json') as request_file:
     request = json.load(request_file)
 
-
 with open(DIR + 'header.json') as header_file:
     header = json.load(header_file)
     # header["Host"] = HOST
