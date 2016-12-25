@@ -1,7 +1,8 @@
 # Local Test Guidelines
 *Make sure you do what the caveats tell you or you'll get errors.*
 1. Start the app server by running `python app.py` in the root directory.
-2. Navigate to the test dir and run `python test.py`
+2. Navigate to the test dir and run `python test.py "<phrase>"`
+
 ## Caveats [You must read this to test locally]
 **I HIGHLY ENCOURAGE YOU TO USE A VIRTUALENV IN CASE YOU FUCK SHIT UP**
 Because Flask_ask requires you to use SSL certificates for verification, using the test script provided in this directory will not work unless you edit the [`verifier.py`](https://github.com/johnwheeler/flask-ask/blob/master/flask_ask/verifier.py) file in your flask_ask installation.

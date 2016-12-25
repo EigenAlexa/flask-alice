@@ -16,7 +16,7 @@ def new_session():
 def next_round(All):
     response = All # TODO make this interact with the AIML interpretor
     # reponse = render_template('respond', response=response) # TODO delete if not necessary
-    return statement(response)
+    return statement(response) # TODO make a handler to detect whether a question has been asked
 
 if __name__ == '__main__':
     app.run(debug=True)
