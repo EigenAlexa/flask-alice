@@ -13,3 +13,14 @@ Once you've run Zappa properly, all you need to do is run
 zappa update dev
 ```
 Where `dev` is the name of the version you're deploying.
+
+## Testing without a Zappa deploy
+Instead of using a Zappa deploy (which can be a pain if you're trying to iterate quickly) you can just run the flask server behind an ngrok proxy. [This blog post tutorial](https://developer.amazon.com/blogs/post/Tx14R0IYYGH3SKT/Flask-Ask-A-New-Python-Framework-for-Rapid-Alexa-Skills-Kit-Development) contains a howto for setting up ngrok.
+
+I've also found that it is available in brew, apt-get, and maybe is in yum/pacman as well.
+
+When its installed, all you'll need to run is
+```
+ngrok http 5000
+```
+and follow the instructions listed in hte link above
