@@ -18,7 +18,11 @@ def new_session():
 def next_round(All):
     response = alice.message(All)
      # TODO make a handler to detect whether a question has been asked
-    return question(response).reprompt("Hey, let's talk about something")
+    return question(response)#.reprompt("Hey, let's talk about something")
+
+@ask.intent("AMAZON.StopIntent")
+def stop():
+    return statement("goodbye")
 
 @ask.session_ended
 def session_ended():
