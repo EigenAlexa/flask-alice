@@ -11,7 +11,7 @@ alice = Alice()
 
 @ask.launch
 def new_session():
-    welcome_msg = render_template('hello')
+    welcome_msg = "hello"
     return statement(welcome_msg)
 
 @ask.intent("AllIntent", convert={'All': str})
@@ -23,6 +23,10 @@ def next_round(All):
 @ask.intent("AMAZON.StopIntent")
 def stop():
     return statement("goodbye")
+
+@ask.intent("AMAZON.HelpIntent")
+def help():
+	return statement("good luck.")
 
 @ask.session_ended
 def session_ended():
