@@ -1,3 +1,10 @@
+## Using Alice with BotOrNot
+'''
+# if you don't have aiml in the directory
+./download-aiml.sh
+./start-bot-server.sh
+'''
+
 # Alice - AIML Interpreter for Alexa
 **NOTE This requires python 2 and a virtualenv. It doesn't work with conda.**
 

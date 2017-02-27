@@ -6,6 +6,7 @@ class Alice:
         DIR = os.path.dirname(os.path.realpath(__file__)) + '/aiml/'
         files = [DIR + f for f in os.listdir(DIR) if os.path.isfile(DIR + f) and '.aiml' in f]
         interpretor = aiml.Kernel()
+        interpretor.verbose(False)
         # TODO uncomment when this works
         # if os.path.isfile("bot_brain.brn"):
         #     interpretor.bootstrap(brainFile = "bot_brain.brn")
@@ -14,8 +15,12 @@ class Alice:
 
         # interpretor.saveBrain("bot_brain.brn")
         self.interpretor = interpretor
-    def message(self, string):
-        return self.interpretor.respond(string)
+
+    def message(self, string, sessionID=None):
+        if sessionID:
+            return self.interpretor.respond(string, sessionID)
+        else:
+            return self.interpretor.respond(string)
 
 if __name__ == "__main__":
     alice = Alice()
