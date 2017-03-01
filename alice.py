@@ -12,7 +12,12 @@ class Alice:
         #     interpretor.bootstrap(brainFile = "bot_brain.brn")
         # else:
         interpretor.bootstrap(learnFiles=files)
-
+	properties_file = open(os.sep.join([DIR, 'bot.properties']))
+	for line in properties_file:
+	    parts = line.split('=')
+	    key = parts[0]
+	    value = parts[1]
+	    interpretor.setBotPredicate(key, value)
         # interpretor.saveBrain("bot_brain.brn")
         self.interpretor = interpretor
 
