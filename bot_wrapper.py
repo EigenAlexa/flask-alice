@@ -2,7 +2,8 @@ from __future__ import print_function, division
 from MeteorClient import MeteorClient, MeteorClientException
 from alice import Alice
 import time, random
-from utils import *
+from utils import func_wrap, replace_localhost
+
 class BotWrapper:
     def __init__(self, url, max_turns=10,callback=None, callback_params=1, msg_q=False):
         print('starting service')
@@ -157,7 +158,7 @@ class BotWrapper:
         self.cps = 60 / (wpm * 5)
         self.last_message = ""
         print('Setting wpm : {} '.format(wpm))
-        if random.random() > 0.5:
+        if random.random() > 0.85:
             msg = self.bot.message('hi', self.roomId)
             self.send_message(msg)
         def message_added(collection, id, fields):
@@ -201,7 +202,7 @@ class BotWrapper:
 
     def still_in_conv(self):
         """ Returns whether the conversation is still moving """
-        in_conv = self.roomId != None and self.turns < self.max_turns and not self.client.find_one('convos', selector={'_id' : self.roomId})['closed']
+        in_conv = self.roomId != None and not self.client.find_one('convos', selector={'_id' : self.roomId})['closed']
         print('\tstill in conv', in_conv )
         if not in_conv:
             self.end_convo()
