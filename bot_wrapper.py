@@ -2,34 +2,13 @@ from __future__ import print_function, division
 from MeteorClient import MeteorClient, MeteorClientException
 from alice import Alice
 import time, random
-
-def func_wrap(func, params=0, error_msg=None):
-
-    def return_func(error, data=None):
-        if error and error_msg:
-            print(error_msg, error)
-        elif error:
-            print(error)
-        elif params == 0:
-            func()
-        elif params == 1:
-            func(data)
-
-    return return_func
-
-def replace_localhost(string):
-    i = string.find('localhost')
-    replace_with = '127.0.0.1'
-    if i > -1:
-        return string[:i] + replace_with + string[i + len('localhost'):]
-    else:
-        return string
-
+from utils import *
 class BotWrapper:
-    def __init__(self, url, callback=None, callback_params=1, msg_q=False):
+    def __init__(self, url, max_turns=10,callback=None, callback_params=1, msg_q=False):
         print('starting service')
         self.url = replace_localhost(url)
         self.bot = Alice()
+        self.max_turns = max_turns
         self.sending_message = False
         self._id = None
         self.use_msg_q = msg_q # msg_q sets whether or not we are queueing messages
@@ -39,7 +18,6 @@ class BotWrapper:
         self.client.connect()
         # self.anon_login(callback, callback_params)
         # self.login(callback, callback_params)
-
     def anon_login(self, callback=None, callback_params=1):
         """ TODO doesn't work because anon users need client side calls -methods i dont' have access to """
 
@@ -152,21 +130,27 @@ class BotWrapper:
     def end_convo(self):
         """ End the conversation """
         print('end conversation and unsubscribe from it all')
+        self.client.remove_all_listeners('added')
+        self.client.remove_all_listeners('changed')
+
         self.unsubscribe('chat')
         self.unsubscribe('msgs')
         self.unsubscribe('currentUsers')
-
-        self.client.remove_all_listeners('added')
-        self.client.remove_all_listeners('changed')
 
         self.client.call('convos.updateRatings', [self.roomId, self._id, 'not']);
         self.available = True
 
     def watch_room(self, roomId, callback=None):
         """ Watch room and make sure that the room is updating """
-        self.max_turns = 10 # TODO method to grab this from the server
         self.turns = 0
-        self.room_closed = self.client.find_one('convos', selector={'_id' : roomId})['closed']
+        convo_obj = self.client.find_one('convos', selector={'_id' : roomId})
+        print(convo_obj, 'convo_obj')
+        self.room_closed = convo_obj['closed']
+        self.topic = convo_obj['promptText']
+
+        # prime the bot with the current topic
+        self.bot.message(self.topic, self.roomId)
+
         self.client.call('convos.makeReady', [roomId, self._id])
         wpm = random.randint(50,100)
         self.cps = 60 / (wpm * 5)

@@ -3,7 +3,8 @@ import json
 from flask import Flask, request
 from bot_wrapper import BotWrapper
 from MeteorClient import MeteorClient
-
+from utils import replace_localhost
+import atexit
 # create our little application :)
 app = Flask(__name__)
 running_bots = []
@@ -32,6 +33,7 @@ def start_bot():
     magic_phrase = [reqdata['magic_phrase']]
     server_url = reqdata['server_url']
     room_id = reqdata['room_id']
+    # max_turns = reqdata['max_turns']
     # checks that bots are running
     bot = get_bot(server_url, callback=
             lambda bot : bot.join(room_id))
@@ -63,7 +65,7 @@ def find_available_bots(server_url):
     return avail_bots
 def get_new_login(server_url, callback=None):
     """ queries the server to give a new login"""
-
+    server_url = replace_localhost(server_url)
     # connects to the server
     websocket = 'ws://%s/websocket' % server_url
     client = MeteorClient(websocket)
@@ -94,6 +96,9 @@ def make_new_bot(server_url, callback=None):
 
     get_new_login(server_url, login_callback)
     return bot
-
+def end_all_bots():
+    for bot in running_bots:
+        bot.client.close()
+atexit.register(end_all_bots)
 if __name__ == "__main__":
     make_new_bot('localhost:3000')
