@@ -146,10 +146,11 @@ class BotWrapper:
         convo_obj = self.client.find_one('convos', selector={'_id' : roomId})
         print(convo_obj, 'convo_obj')
         self.room_closed = convo_obj['closed']
-        self.topic = convo_obj['promptText']
+        # prompt text removed so this is commented out
+        # self.topic = convo_obj['promptText']
 
-        # prime the bot with the current topic
-        self.bot.message(self.topic, self.roomId)
+        # # prime the bot with the current topic
+        # self.bot.message(self.topic, self.roomId)
 
         self.client.call('convos.makeReady', [roomId, self._id])
         wpm = random.randint(50,100)
