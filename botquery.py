@@ -95,6 +95,7 @@ def make_new_bot(server_url, callback=None):
         else:
             print('login callback data', data)
             next_user = data
+            print(next_user)
             bot.login(next_user['user'], next_user['pwd'], callback, callback_params=1)
             running_bots.append(bot)
 

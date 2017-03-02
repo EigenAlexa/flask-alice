@@ -16,7 +16,6 @@ class BotWrapper:
         self._id = None
         self.use_msg_q = msg_q # msg_q sets whether or not we are queueing messages
         websocket = 'ws://%s/websocket' % self.url
-        print(websocket)
         self.client = MeteorClient(websocket)
         self.client.connect()
 
