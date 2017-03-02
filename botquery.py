@@ -1,4 +1,5 @@
 """ The main file for the bot server. """
+from __future__ import print_function
 import json
 from flask import Flask, request
 from bot_wrapper import BotWrapper
@@ -8,6 +9,8 @@ import atexit
 # create our little application :)
 app = Flask(__name__)
 running_bots = []
+room_ids = set()
+
 @app.cli.command('cli')
 def cli_command():
     # TODO determien use
@@ -20,6 +23,7 @@ magic_phrase = []
 def on_start():
     """ only used for debugging """
     print('on start')
+
 @app.teardown_appcontext
 def teardown_func(error):
     """Runs on teardown"""
@@ -33,16 +37,19 @@ def start_bot():
     magic_phrase = [reqdata['magic_phrase']]
     server_url = reqdata['server_url']
     room_id = reqdata['room_id']
-    # max_turns = reqdata['max_turns']
-    # checks that bots are running
-    bot = get_bot(server_url, callback=
-            lambda bot : bot.join(room_id))
-    print(bot)
+    if room_id not in room_ids:
+        # max_turns = reqdata['max_turns']
+        # checks that bots are running
+        def get_bot_cb(bot):
+            bot.join_room(room_id)
+        bot = get_bot(server_url, callback=
+                get_bot_cb)
+        print(bot)
+        room_ids.add(room_id)
+        return 'New bot starting in room "{}"'.format(room_id)
+    else:
+        return 'Bot already started in room "{}"'.format(room_id)
 
-    # TODO figure out how to detemrine whether bot joined the right room or not
-    # and return accordingly.
-
-    return 'supping bot'
 
 def get_bot(server_url, callback=None):
     ''' returns a running bot or None otherwise '''
@@ -63,6 +70,7 @@ def find_available_bots(server_url):
     avail_bots = [r for r in running_bots if r.available]
     print('running bot: {}; bots available: {}'.format(len(running_bots), len(avail_bots)))
     return avail_bots
+
 def get_new_login(server_url, callback=None):
     """ queries the server to give a new login"""
     server_url = replace_localhost(server_url)
@@ -76,9 +84,6 @@ def get_new_login(server_url, callback=None):
             callback(error, data)
     # queries the method with a magicphrase
     client.call('getBotUsername', magic_phrase, cb)
-
-
-
 
 def make_new_bot(server_url, callback=None):
     ''' make a new bot connected to the server url '''
@@ -96,9 +101,16 @@ def make_new_bot(server_url, callback=None):
 
     get_new_login(server_url, login_callback)
     return bot
+
 def end_all_bots():
+    print('closing all bots')
     for bot in running_bots:
+        print(bot._id, 'closing connection')
+        if not bot.available:
+            bot.end_convo()
         bot.client.close()
+
 atexit.register(end_all_bots)
+
 if __name__ == "__main__":
     make_new_bot('localhost:3000')

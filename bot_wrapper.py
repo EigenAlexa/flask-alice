@@ -3,10 +3,12 @@ from MeteorClient import MeteorClient, MeteorClientException
 from alice import Alice
 import time, random
 from utils import func_wrap, replace_localhost
+import threading
 
 class BotWrapper:
     def __init__(self, url, max_turns=10,callback=None, callback_params=1, msg_q=False):
         print('starting service')
+        self.start_proba = 0.85
         self.url = replace_localhost(url)
         self.bot = Alice()
         self.max_turns = max_turns
@@ -17,27 +19,25 @@ class BotWrapper:
         print(websocket)
         self.client = MeteorClient(websocket)
         self.client.connect()
-        # self.anon_login(callback, callback_params)
-        # self.login(callback, callback_params)
-    def anon_login(self, callback=None, callback_params=1):
-        """ TODO doesn't work because anon users need client side calls -methods i dont' have access to """
 
-        # DON"T USE
-        print('anon login')
-        def set_user(data):
-            print(data)
-            user = self.client.find_one('users')
-            if user:
-                print('login user', user._id)
-                self.set_user_id(user._id)
-                self.unsubscribe('getUserId')
-            if callback and callback_params == 1:
-                callback(self)
-            elif callback:
-                callback()
+        self.idle_time = 3 * 60
+        self.thread_time = 2
+        self.max_retry = 3
 
-        self.subscribe('getUserId', callback=
-                func_wrap(set_user, params=1))
+    def restart_idler(self):
+        ''' Restarts the idle watcher '''
+        print('restarting idler')
+        if hasattr(self,'idler_thread') and self.idler_thread:
+            self.idler_thread.cancel()
+        self.idler_thread = threading.Timer(self.idle_time, self.idle_user_handler)
+        self.idler_thread.start()
+
+    def idle_user_handler(self):
+        """ Handler that disconnects conversation in the event that a user leaves """
+
+        print('user is idle disconnect')
+        self.idler_thread = None
+        self.end_convo()
 
     def login(self, user='notbot', pwd='botbot', callback=None, callback_params=0):
         print('logging in')
@@ -50,7 +50,7 @@ class BotWrapper:
                 callback(self)
             elif callback and callback_params == 0:
                 callback()
-
+        # TODO make this into threading timers.
         while not self._id:
             self.client.login(user, pwd, callback= func_wrap(
                 set_user, params=1))
@@ -60,6 +60,7 @@ class BotWrapper:
         self.client.logout()
 
     def find_and_join_room(self):
+        """ Finds a room and joins it """
         self.find_room(callback=(lambda roomId : self.join_room(roomId)))
 
     def find_room(self, callback=None):
@@ -100,10 +101,6 @@ class BotWrapper:
             if callback:
                 callback(None)
 
-    def join(self, roomId):
-        """ Shortcut to join without callback """
-        self.join_room(roomId)
-
     def join_room(self, roomId, callback=None):
         """ Join a room based on roomId """
         print ('join room with id', roomId)
@@ -138,38 +135,59 @@ class BotWrapper:
         self.unsubscribe('msgs')
         self.unsubscribe('currentUsers')
 
+        self.client.call('users.exitConvo', [self._id]);
         self.client.call('convos.updateRatings', [self.roomId, self._id, 'not']);
         self.available = True
+        if self.idler_thread:
+            self.idler_thread.cancel()
+
+    def set_wpm(self):
+        """ Set the words per minute of the bot """
+        wpm = random.randint(90,140)
+        self.cps = 60 / (wpm * 5)
+        print('Setting wpm : {} '.format(wpm))
+
+    def prime_bot(self,convo_obj):
+        """  the conversational bot """
+        print('convo_obj',convo_obj)
+        input_msg = 'hi'
+        if 'msgs' in convo_obj and convo_obj['msgs']:
+            topic_msg_id = convo_obj['msgs'][0]
+            msg_obj = self.client.find_one('messages', selector={'_id': topic_msg_id})
+            if msg_obj:
+                input_msg = msg_obj['message']
+
+        msg = self.bot.message(input_msg, self.roomId)
+        if random.random() > self.start_proba:
+            self.send_message(msg)
 
     def watch_room(self, roomId, callback=None):
-        """ Watch room and make sure that the room is updating """
+        """
+        Setup Event Listeneres for a room and checks to make sure that the room is updating
+        """
         self.turns = 0
         convo_obj = self.client.find_one('convos', selector={'_id' : roomId})
-        print(convo_obj, 'convo_obj')
         self.room_closed = convo_obj['closed']
-        # prompt text removed so this is commented out
-        # self.topic = convo_obj['promptText']
+        self.set_wpm()
 
-        # # prime the bot with the current topic
-        # self.bot.message(self.topic, self.roomId)
-
-        self.client.call('convos.makeReady', [roomId, self._id])
-        wpm = random.randint(50,100)
-        self.cps = 60 / (wpm * 5)
         self.last_message = ""
-        print('Setting wpm : {} '.format(wpm))
-        if random.random() > 0.85:
-            msg = self.bot.message('hi', self.roomId)
-            self.send_message(msg)
+        self.confirmed_messages = [] # all messages sent by the user that have been confirmed
         def message_added(collection, id, fields):
-            if ('message' in fields and 'user' in fields and fields['user'] != self._id):
-                if self.last_message != fields['message']:
+            """ callback for when a message is added """
+            if (collection == 'messages' and 'message' in fields and 'user' in fields):
+                print(type(self._id), type(fields['user']), self._id, fields['user'])
+                if fields['user'] != self._id and self.last_message != fields['message']:
+                    self.restart_idler()
                     self.receive_message(fields['message'])
                     self.last_message = fields['message']
+                elif fields['user'] == self._id:
+                    print('\t messages from self detected')
+                    self.confirmed_messages.append(fields['message'])
 
         self.client.on('added', message_added)
 
         def watch_convo(collection, id, fields, cleared):
+            """ callback for when any part of the conversation is updated """
             if self.roomId and collection == "convos" and id == self.roomId:
                 # print('\t',fields)
                 if 'closed' in fields:
@@ -178,11 +196,20 @@ class BotWrapper:
                     self.end_convo()
                 if 'msgs' in fields:
                     print('\tMessages updated in convo "{}"'.format(id))
+                    # TODO this is bugggy
                     self.respond()
                 if 'turns' in fields:
-                    print('\t Turns updated to "{}"'.format(fields['turns']))
+                    print('\tTurns updated to "{}"'.format(fields['turns']))
                     self.turns = fields['turns']
+            elif self.roomId == id:
+                print(collection, id, fields)
+
         self.client.on('changed', watch_convo)
+        # mark the bot as ready to talk
+        self.client.call('convos.makeReady', [roomId, self._id])
+        self.restart_idler()
+        self.prime_bot(convo_obj)
+
         if callback:
             callback(None)
 
@@ -209,16 +236,60 @@ class BotWrapper:
         print('\tclosed: ',self.client.find_one('convos', selector={'_id': self.roomId})['closed'])
         return in_conv
 
+    def get_convo_dict(self):
+        if self.roomId:
+            return self.client.find_one('convos', selector={'_id': self.roomId})
+        else:
+            return {}
 
-    def send_message(self, message, callback=None):
-        # calculates typing speed based on rough cps for user
-        time.sleep(self.cps * len(message))
+    def get_message(self,idx):
+        ''' Returns the message at idx'''
+        convo_dict = self.get_convo_dict()
+        if convo_dict:
+            topic_msg_id = convo_dict['msgs'][idx]
+            msg_dict = self.client.find_one('messages', selector={'_id': topic_msg_id})
+            # print(msg_dict)
+            if msg_dict:
+                return msg_dict['message']
+        return ''
+
+    def received_message(self, message):
+        """ Checks whether the bot actually sent the message """
+        # TODO add handler that removes a confirmed message to save memory
+        return message in self.confirmed_messages
+
+    def retry_message(self, message, retry=0, callback=None):
+        """ Handler that makes attempts to connect a user back into a conversation """
+        # TODO set as properties
+        if retry == 0 or not self.received_message(message) and retry < self.max_retry:
+            self.update_conversation(message, callback)
+
+            if retry != 0: print('\t\tRetry {} of sending "{}"'.format(retry, message))
+
+            t = threading.Timer(self.thread_time, lambda : self.retry_message(message, retry + 1))
+            t.start()
+        elif retry >= self.max_retry:
+            print('\tMax retries reached - couldn\'t verify whether {} was received'.format(message))
+        else:
+            print('\t"{}" successfully received'.format(message))
+
+    def update_conversation(self, message, callback=None):
+        self.client.call('convos.updateChat', [message, self.roomId, self._id], callback)
+
+    def _send_message(self, message, callback=None):
+        self.last_message_sent  = message
         if self.still_in_conv():
-            print("Sending '{}'".format(message))
-            self.client.call('convos.updateChat', [message, self.roomId, self._id], callback)
+            self.retry_message(message, callback=callback)
         else:
             print('Not responding - conversation is OVER')
         self.sending_message = False
+
+    def send_message(self, message, callback=None):
+        # calculates typing speed based on rough cps for user
+        sleep_time = self.cps * len(message)
+        print("Preparing to send '{}' Waiting '{}' seconds.".format(message, sleep_time))
+        t = threading.Timer(sleep_time, lambda: self._send_message(message,callback))
+        t.start()
 
     def receive_message(self, message):
         """ Called whenever the bot receives a message """
