@@ -5,6 +5,23 @@ import time, random
 from utils import func_wrap, replace_localhost
 import threading
 
+class MessageHandlerThread(threading.Thread):
+    def __init__(self, bot):
+        threading.Thread.__init__(self, target=self.handle_message)
+        self.daemon = True
+	self.message_received = False
+	self.convo_updated = False
+        self.bot = bot
+    def handle_message(self):
+        while True:
+            while not self.convo_updated or not self.message_received:
+                pass
+            self.bot.restart_idler()
+            self.bot.respond()
+            self.message_received = False
+            self.convo_updated = False
+            self.run()
+
 class BotWrapper:
     def __init__(self, url, max_turns=10,callback=None, callback_params=1, msg_q=False):
         print('starting service')
@@ -94,6 +111,7 @@ class BotWrapper:
     def subscribe(self, collection, params=[], callback=None):
         """ Wrapper for subscribe to avoid issues with already subscribed rooms """
         try:
+            print("subscribing to {}".format(collection))
             self.client.subscribe(collection, params, callback)
         except MeteorClientException:
             print('Already subscribed to {}. Running callback with None'.format(collection))
@@ -171,6 +189,7 @@ class BotWrapper:
 
         self.last_message = ""
         self.confirmed_messages = [] # all messages sent by the user that have been confirmed
+        self.thread = MessageHandlerThread(self)
         def message_added(collection, id, fields):
             """ callback for when a message is added """
             if (collection == 'messages' and 'message' in fields and 'user' in fields):
@@ -179,6 +198,7 @@ class BotWrapper:
                     self.restart_idler()
                     self.receive_message(fields['message'])
                     self.last_message = fields['message']
+                    self.thread.message_received = True
                 elif fields['user'] == self._id:
                     print('\t messages from self detected')
                     self.confirmed_messages.append(fields['message'])
@@ -196,7 +216,7 @@ class BotWrapper:
                 if 'msgs' in fields:
                     print('\tMessages updated in convo "{}"'.format(id))
                     # TODO this is bugggy
-                    self.respond()
+                    self.thread.convo_updated = True
                 if 'turns' in fields:
                     print('\tTurns updated to "{}"'.format(fields['turns']))
                     self.turns = fields['turns']
@@ -208,22 +228,28 @@ class BotWrapper:
         self.client.call('convos.makeReady', [roomId, self._id])
         self.restart_idler()
         self.prime_bot(convo_obj)
+        print("before thread")
+        self.thread.start()
+        print("after thread")
 
         if callback:
             callback(None)
 
     def respond(self):
         """ Kind of a hacky way to respond to the conversation """
+        print("responding")
         if self.msg_queue and self.use_msg_q:
             partner_msg = self.msg_queue[0]
             self.msg_queue = self.msg_queue[1:]
             msg = self.bot.message(partner_msg, self.roomId)
+            print(msg)
             self.send_message(msg)
 
         if self.msg_queue and not self.sending_message:
             partner_msg = self.msg_queue[-1]
             self.msg_queue = self.msg_queue[:-1]
             msg = self.bot.message(partner_msg, self.roomId)
+            print(msg)
             self.send_message(msg)
 
     def still_in_conv(self):
