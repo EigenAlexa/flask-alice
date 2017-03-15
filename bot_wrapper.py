@@ -9,8 +9,8 @@ class MessageHandlerThread(threading.Thread):
     def __init__(self, bot):
         threading.Thread.__init__(self, target=self.handle_message)
         self.daemon = True
-	self.message_received = False
-	self.convo_updated = False
+        self.message_received = False
+        self.convo_updated = False
         self.bot = bot
     def handle_message(self):
         while True:

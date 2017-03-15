@@ -37,6 +37,7 @@ def start_bot():
     magic_phrase = [reqdata['magic_phrase']]
     server_url = reqdata['server_url']
     room_id = reqdata['room_id']
+    print(reqdata)
     if room_id not in room_ids:
         # max_turns = reqdata['max_turns']
         # checks that bots are running
