@@ -25,7 +25,7 @@ class MessageHandlerThread(threading.Thread):
 class BotWrapper:
     def __init__(self, url, max_turns=10,callback=None, callback_params=1, msg_q=False):
         print('starting service')
-        self.start_proba = 0.85
+        self.start_proba = 1.0
         self.url = replace_localhost(url)
         self.bot = Alice()
         self.max_turns = max_turns
@@ -34,6 +34,8 @@ class BotWrapper:
         self.use_msg_q = msg_q # msg_q sets whether or not we are queueing messages
         websocket = 'ws://%s/websocket' % self.url
         self.client = MeteorClient(websocket)
+        self.client.ddp_client.ddpsocket.extra_headers = [('Bot', 'true')]
+        print(self.client.ddp_client.ddpsocket.handshake_headers)
         self.client.connect()
 
         self.idle_time = 3 * 60
@@ -124,17 +126,22 @@ class BotWrapper:
         self.roomId = roomId
         self.msg_queue = []
         self.available = False
-
-        self.client.call('convos.addUserToRoom', params=[self._id, roomId], callback= func_wrap(
-            lambda : self.subscribe('chat', [roomId], func_wrap(
-                lambda : self.subscribe('msgs', [roomId], func_wrap(
-                    lambda : self.subscribe('currentUsers', [roomId], func_wrap(
-                        lambda: self.watch_room(roomId, callback)) )
-                    )
-                )
-            ) )
-        ))
-
+        def sub_callback(noneval=None):
+            currentConvo = self.client.find_one('convos', selector={"_id":roomId})
+            print("current convo: {}".format(currentConvo))
+            if currentConvo and not currentConvo['closed']:
+                self.client.call('convos.addUserToRoom', params=[self._id, roomId], callback= func_wrap(
+                    lambda : self.subscribe('chat', [roomId], func_wrap(
+                        lambda : self.subscribe('msgs', [roomId], func_wrap(
+                            lambda : self.subscribe('currentUsers', [roomId], func_wrap(
+                                lambda: self.watch_room(roomId, callback)) )
+                            )
+                        )
+                    ) )
+                ))
+            else:
+                self.end_convo()  
+        self.subscribe('openrooms', callback=sub_callback)
     def unsubscribe(self, collection):
         """ Unsubscribe from the collection """
         try:
@@ -160,7 +167,7 @@ class BotWrapper:
 
     def set_wpm(self):
         """ Set the words per minute of the bot """
-        wpm = random.randint(90,140)
+        wpm = random.randint(150,200)
         self.cps = 60 / (wpm * 5)
         print('Setting wpm : {} '.format(wpm))
 
