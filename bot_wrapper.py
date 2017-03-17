@@ -162,7 +162,7 @@ class BotWrapper:
         self.client.call('users.exitConvo', [self._id]);
         self.client.call('convos.updateRatings', [self.roomId, self._id, 'not']);
         self.available = True
-        if self.idler_thread:
+        if hasattr(self, 'idler_thread') and self.idler_thread:
             self.idler_thread.cancel()
 
     def set_wpm(self):
