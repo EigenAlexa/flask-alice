@@ -68,7 +68,7 @@ def get_bot(server_url, callback=None):
 
 def find_available_bots(server_url):
     ''' returns all bots that can be added to a room '''
-    avail_bots = [r for r in running_bots if r.available]
+    avail_bots = [r for r in running_bots if r.available and r.url == server_url]
     print('running bot: {}; bots available: {}'.format(len(running_bots), len(avail_bots)))
     return avail_bots
 
