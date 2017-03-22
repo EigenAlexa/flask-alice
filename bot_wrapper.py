@@ -130,7 +130,7 @@ class BotWrapper:
             currentConvo = self.client.find_one('convos', selector={"_id":roomId})
             print("current convo: {}".format(currentConvo))
             if currentConvo and not currentConvo['closed']:
-                self.client.call('convos.addUserToRoom', params=[self._id, roomId], callback= func_wrap(
+                self.client.call('convos.addUserToRoom', params=[roomId], callback= func_wrap(
                     lambda : self.subscribe('chat', [roomId], func_wrap(
                         lambda : self.subscribe('msgs', [roomId], func_wrap(
                             lambda : self.subscribe('currentUsers', [roomId], func_wrap(
@@ -159,8 +159,8 @@ class BotWrapper:
         self.unsubscribe('msgs')
         self.unsubscribe('currentUsers')
 
-        self.client.call('users.exitConvo', [self._id]);
-        self.client.call('convos.updateRatings', [self.roomId, self._id, 'not']);
+        self.client.call('users.exitConvo', []);
+        self.client.call('convos.updateRatings', [self.roomId, 'not']);
         self.available = True
         if hasattr(self, 'idler_thread') and self.idler_thread:
             self.idler_thread.cancel()
@@ -232,7 +232,7 @@ class BotWrapper:
 
         self.client.on('changed', watch_convo)
         # mark the bot as ready to talk
-        self.client.call('convos.makeReady', [roomId, self._id])
+        self.client.call('convos.makeReady', [roomId])
         self.restart_idler()
         self.prime_bot(convo_obj)
         print("before thread")
@@ -306,7 +306,7 @@ class BotWrapper:
             print('\t"{}" successfully received'.format(message))
 
     def update_conversation(self, message, callback=None):
-        self.client.call('convos.updateChat', [message, self.roomId, self._id], callback)
+        self.client.call('convos.updateChat', [message, self.roomId], callback)
 
     def _send_message(self, message, callback=None):
         self.last_message_sent  = message
