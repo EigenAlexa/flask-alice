@@ -105,7 +105,7 @@ class BotWrapper:
             else:
                 print('No rooms found. Back to the bat cave')
         self.subscribe('openrooms', callback=func_wrap(
-            lambda : self.subscribe('currentUser',params=[self._id], callback=func_wrap(
+            lambda : self.subscribe('currentUser',params=[], callback=func_wrap(
                 lambda : room_callback()
             )
         )))
