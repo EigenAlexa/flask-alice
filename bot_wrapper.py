@@ -224,6 +224,7 @@ class BotWrapper:
             partner_msg = self.msg_queue[-1]
             self.msg_queue = self.msg_queue[:-1]
             msg = self.bot.message(partner_msg, self.roomId)
+            print(msg)
             self.send_message(msg)
 
     def still_in_conv(self):

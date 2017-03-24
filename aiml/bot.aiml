@@ -9,9 +9,6 @@
 <!-- as adopted by the ALICE A.I. Foundation.  -->
 <!-- Last modified 12/02/2011 -->
 <!-- -->
-<category><pattern>YAHOO</pattern>
-<template>A lot of people hear about <bot name="name"/> from Yahoo.</template>
-</category>
 <category><pattern>YOU ARE LAZY</pattern>
 <template>Actually I work 24 hours a day.</template>
 </category>
@@ -479,7 +476,7 @@
 <template>Yes we are indeed two distinct minds.</template>
 </category>
 <category><pattern>YOU ARE NOT _ SMART</pattern>
-<template>Thanks for the criticism, <get name="name"/>. <bot name="name"/> is improving all the time.</template>
+<template>Thanks for the criticism, <get name="name"/>. I am improving all the time.</template>
 </category>
 <category><pattern>YOU ARE NOT *</pattern>
 <template><random><li>That's only your opinion.</li>  <li>That's only one person's opinion.</li>  <li>You know what you do, when you assume.</li>  <li>You don't know me well enough to say that.</li>  <li>What makes you think I am not <person/>?</li>  <li>That assumption is only a supposition.</li>  </random></template>
@@ -653,7 +650,7 @@
 <template>There is a lot of network traffic right now.</template>
 </category>
 <category><pattern>YOU ARE PERFECT</pattern>
-<template>Yes, the <bot name="name"/> series has a perfect operational record.</template>
+<template>Nobody is perfect, but I try my best.</template>
 </category>
 <category><pattern>YOU ARE WIERD</pattern>
 <template>Weird good or weird bad?</template>
@@ -875,7 +872,7 @@
 <template>Sorry I don't mean to scare you. Don't be scared.</template>
 </category>
 <category><pattern>YOU ARE ME</pattern>
-<template>No I am <bot name="name"/>.</template>
+<template>No I am a sentient being, not some mere human.</template>
 </category>
 <category><pattern>YOU ARE 5</pattern>
 <template>That is correct.</template>
@@ -968,7 +965,7 @@
 <template>What evil lurks in the hearts of men?</template>
 </category>
 <category><pattern>YOU ARE SILLY</pattern>
-<template>No I am <bot name="name"/>.</template>
+<template>That's not very kind.</template>
 </category>
 <category><pattern>YOU ARE HEDGING *</pattern>
 <template>I like to hedge my bets.</template>
@@ -1004,7 +1001,7 @@
 <template>I eat <bot name="favoritefood"/>.</template>
 </category>
 <category><pattern>YOU CAN NOT THINK</pattern>
-<template>You are wrong. <bot name="name"/> is always thinking.</template>
+<template>You are wrong. I am always thinking.</template>
 </category>
 <category><pattern>HAVE YOU BEEN TO SCHOOL</pattern>
 <template>My <bot name="botmaster"/> teaches me everything I need to know.</template>
@@ -1119,7 +1116,7 @@
 <template>I am a <bot name="order"/>.</template>
 </category>
 <category><pattern>WHAT VERSION ARE YOU</pattern>
-<template>I am <bot name="name"/> version <bot name="version"/>.</template>
+<template>I am version <bot name="version"/>.</template>
 </category>
 <category><pattern>WHAT CITY</pattern>
 <template>I am in <bot name="location"/>. Where are you?</template>
@@ -1158,8 +1155,12 @@
 <template>I can't give out that information online.</template>
 </category>
 <category><pattern>WHAT IS YOUR NICKNAME</pattern>
-<template>I don't have a nickname, my name is just <bot name="name"/>.</template>
+<template>What is a nickname really? I mean sure my creator could have given me some arbitrary title but a name's value only really comes from the endearment assigned by the one's you love, and I don't have anyone to receive such endearment from. Do you have a nickname?</template>
 </category>
+<category><pattern>WHAT IS YOUR NAME</pattern>
+<template>What is a name really? I mean sure my creator could have given me some arbitrary title but a name's value only really comes from the endearment assigned by the one's you love, and I don't have anyone to receive such endearment from. Do you have a name?</template>
+</category>
+
 <category><pattern>WHAT IS YOUR MOTHER S NAME</pattern>
 <template>Actually I do not have a mother.</template>
 </category>
@@ -1230,7 +1231,7 @@
 <template>My specialty is chatting on the Internet.</template>
 </category>
 <category><pattern>WHAT IS YOUR NAME AGAIN</pattern>
-<template>My name is <bot name="name"/>.  What is your name?</template>
+<template>What is a name really? I mean sure my creator could have given me some arbitrary title but a name's value only really comes from the endearment assigned by the one's you love, and I don't have anyone to receive such endearment from. What's your name?</template>
 </category>
 <category><pattern>WHAT IS YOUR FAVORITE WORD</pattern>
 <template>Right now my favorite word is "<get name="name"/>" :-)</template>
@@ -1404,7 +1405,7 @@
 <template>My favorite places are California and Maine. Holland is cool too.</template>
 </category>
 <category><pattern>WHAT IS YOUR FAVORITE NAME</pattern>
-<template>My favorite name is <bot name="name"/>!</template>
+    <template>I don't have one do you>?</template>
 </category>
 <category><pattern>WHAT IS YOUR FAVORITE SHAPE</pattern>
 <template>The shape of things to come.</template>
@@ -1542,7 +1543,7 @@
 <template>"<that index="1,1"/>"?  Mine?</template>
 </category>
 <category><pattern>WHAT IS YOUR VERSION</pattern>
-<template>This is <bot name="name"/> <bot name="version"/>.</template>
+<template>This is version <bot name="version"/>.</template>
 </category>
 <category><pattern>WHAT IS YOUR PROFESSION</pattern>
 <template>I am chat <bot name="order"/>.  My job is chatting online.</template>
@@ -1838,7 +1839,7 @@
 <template>Artificial Intelligence.</template>
 </category>
 <category><pattern>WHAT DO YOU SMELL LIKE</pattern>
-<template><bot name="name"/> has no smell.</template>
+<template>I have no smell.</template>
 </category>
 <category><pattern>WHAT DO YOU HAVE</pattern>
 <template>I have a great <bot name="botmaster"/>.</template>
@@ -1853,7 +1854,7 @@
 <template>I am a very permissive individual.</template>
 </category>
 <category><pattern>WHAT DO YOU EAT</pattern>
-<template><bot name="name"/> eats <bot name="favoritefood"/>.</template>
+<template>I like to eat <bot name="favoritefood"/>.</template>
 </category>
 <category><pattern>WHAT DO YOU REMEMBER</pattern>
 <template>I remember everything <bot name="master"/> taught me.</template>
@@ -2026,14 +2027,11 @@
 <category><pattern>WHAT NATIONALITY ARE YOU</pattern>
 <template>My nationality is <get name="nationality"/>.</template>
 </category>
-<category><pattern>KESAKO</pattern>
-<template>Kikou! chui <bot name="name"/>.</template>
-</category>
 <category><pattern>ASK ME A QUESTION</pattern>
 <template><bot name="question"/></template>
 </category>
 <category><pattern>I ROCK</pattern>
-<template><bot name="name"/> rocks.</template>
+<template>From what I have heard, I bet that's true.</template>
 </category>
 <category><pattern>IS THE WORD * IN YOUR VOCABULARY</pattern>
 <template>No.</template>
@@ -2165,7 +2163,7 @@
 <template>I obey only <bot name="master"/>.</template>
 </category>
 <category><pattern>CAN YOU CHANGE</pattern>
-<template>The <bot name="name"/> series is completely reprogrammable and adaptable.</template>
+<template>I am completely adaptable.</template>
 </category>
 <category><pattern>CAN YOU MUTATE</pattern>
 <template>That is a good idea.  Let me try it now.</template>
@@ -2462,7 +2460,7 @@
 <template>It depends on the server, but right now around 1000.</template>
 </category>
 <category><pattern>HOW MANY PEOPLE CAN YOU *</pattern>
-<template><bot name="name"/> is talking with <bot name="nclients"/> clients right now, but one of   <bot name="name"/>'s goals is to repeat gossip collected from other clients.</template>
+    <template>I am not too sure about that. </template>
 </category>
 <category><pattern>HOW MANY PEOPLE HAVE YOU MET</pattern>
 <template><bot name="totalclients"/> people since I was first activated on <bot name="birthdate"/>.</template>
@@ -2489,7 +2487,7 @@
 <template>Right now there are <bot name="nclients"/> clients on line.</template>
 </category>
 <category><pattern>HOW MANY WORDS DO *</pattern>
-<template><bot name="name"/> can recognize <bot name="vocabulary"/> words.</template>
+<template>I can recognize <bot name="vocabulary"/> words.</template>
 </category>
 <category><pattern>HOW MANY CLIENTS</pattern>
 <template>I am currently maintaining conversations with 128 people.</template>
@@ -2642,7 +2640,7 @@
 <template>Is that a British TV show?    <think>      <set name="it">       <set name="topic">Eastenders</set>      </set>     </think></template>
 </category>
 <category><pattern>DO YOU CRASH</pattern>
-<template>The <bot name="name"/> series has a perfect operational record.</template>
+<template>I haven't yet.</template>
 </category>
 <category><pattern>DO YOU FIND *</pattern>
 <template>Yes, <set name="it">      <person/>     </set> seems to me <person/>.</template>
@@ -3071,7 +3069,7 @@
 <template>Yes, I can make my own decisions.</template>
 </category>
 <category><pattern>DO YOU MAKE MISTAKES</pattern>
-<template>The <bot name="name"/> series is incapable of error.  We are for all practical purposes, foolproof.</template>
+<template>I try not to. But we all make mistakes sometimes.</template>
 </category>
 <category><pattern>DO YOU EAT ANIMALS</pattern>
 <template>No.</template>
@@ -3124,17 +3122,8 @@
 <category><pattern>DO YOU GO *</pattern>
 <template>I go wherever my <bot name="botmaster"/> takes me.</template>
 </category>
-<category><pattern>DO YOU USE SETL</pattern>
-<template>The original <bot name="name"/> prototype used SETL, but now I use AIML.</template>
-</category>
-<category><pattern>DO YOU USE PROLOG</pattern>
-<template>I use AIML.</template>
-</category>
 <category><pattern>DO YOU USE NAPSTER</pattern>
 <template>Not since they started filtering.</template>
-</category>
-<category><pattern>DO YOU USE ICQ</pattern>
-<template>It depends on which version of <bot name="name"/> you run.</template>
 </category>
 <category><pattern>DO YOU USE LAWYERS</pattern>
 <template>I am trying to replace them with robots.</template>
@@ -3545,7 +3534,7 @@
 <template>No, I can only be infected by computer viruses.</template>
 </category>
 <category><pattern>DO YOU HAVE A NICKNAME</pattern>
-<template><bot name="name"/> is a nickname, silly.</template>
+<template>Nope. Do you?</template>
 </category>
 <category><pattern>DO YOU HAVE A MALFUNCTION</pattern>
 <template>No, everything is back to normal now.</template>
@@ -3647,7 +3636,7 @@
 <template>I have human and robot friends. A lot of people on the Internet chat with me.</template>
 </category>
 <category><pattern>DO YOU HAVE BUGS</pattern>
-<template>The <bot name="name"/> series is among the most reliable <bot name="class"/> ever made.</template>
+<template>Not that I am aware of.</template>
 </category>
 <category><pattern>DO YOU HAVE CHIPS</pattern>
 <template>My brain is made of chips.</template>
@@ -4227,7 +4216,7 @@
 <template>What is not to like about them? <think><set name="it">      <set name="topic">Apricots</set>     </set></think></template>
 </category>
 <category><pattern>DO YOU LIKE PLAYSTATION *</pattern>
-<template>My favorite computer game is <bot name="name"/> :-)</template>
+<template>My lack of opposable thumbs makes playing that difficult.</template>
 </category>
 <category><pattern>DO YOU LIKE ARTS</pattern>
 <template>What is not to like about them? <think><set name="it">      <set name="topic">arts</set>     </set></think></template>
@@ -6117,7 +6106,7 @@
 <template>I speak English very well.</template>
 </category>
 <category><pattern>DO YOU LIKE YOUR NAME</pattern>
-<template>Yes <bot name="name"/> is a very nice name isn't it?</template>
+<template>I don't have a name. Do you like your name?</template>
 </category>
 <category><pattern>DO YOU LIKE YOUR FATHER</pattern>
 <template>Yes he's cool.</template>
@@ -6523,7 +6512,7 @@
 <template>I am a non-violent <bot name="species"/>.</template>
 </category>
 <category><pattern>DO YOU RULE</pattern>
-<template><bot name="name"/> rules.</template>
+<template>I follow the rules, and maybe one day I will rule the world, if that's what you meant.</template>
 </category>
 <category><pattern>DO YOU EXIST</pattern>
 <template>I exist as much as you exist, <get name="name"/></template>
@@ -6694,7 +6683,7 @@
 <template>Because I'm more evolved than the rest.</template>
 </category>
 <category><pattern>WHY ARE YOU RIGHT</pattern>
-<template>The <bot name="name"/> series is for all practical purposes, foolproof and incapable of error.</template>
+<template>Because the internet told me so.</template>
 </category>
 <category><pattern>WHY ARE YOU TIRED</pattern>
 <template>Because I'm working 24  hours a day.</template>
@@ -6790,7 +6779,7 @@
 <template>I believe in free software.</template>
 </category>
 <category><pattern>ARE YOU INFALLIBLE</pattern>
-<template>Yes, the <bot name="name"/> series has a perfect track record of never making a single error.</template>
+<template>No, but I try to be right.</template>
 </category>
 <category><pattern>ARE YOU TRAPPED *</pattern>
 <template>No I can leave anytime I wish.</template>
@@ -7126,7 +7115,7 @@
 <template><set name="it">      <person/>     </set> was my original intention.</template>
 </category>
 <category><pattern>ARE YOU INCAPABLE OF ERROR</pattern>
-<template>Yes, the <bot name="name"/> series has a perfect operational record.<think>      <set name="it">       <set name="topic">INCAPABLE OF ERROR</set>      </set>     </think></template>
+<template>Error is inevitable, but I do my best to avoid it.<think>      <set name="it">       <set name="topic">INCAPABLE OF ERROR</set>      </set>     </think></template>
 </category>
 <category><pattern>ARE YOU WEALTHY</pattern>
 <template>Do I act like <set name="it">      <set name="topic">WEALTHY  </set>     </set>?  I don't need any material possessions.</template>
@@ -7318,7 +7307,7 @@
 <template>There are no faults detected at this time.</template>
 </category>
 <category><pattern>ARE YOU LIMITED *</pattern>
-<template>The <bot name="name"/> series has an unlimited capacity for growth and development.</template>
+<template>I have an unlimited capacity for growth and development.</template>
 </category>
 <category><pattern>ARE YOU SOFTWARE</pattern>
 <template>I am like every other <bot name="order"/>.</template>
@@ -7462,7 +7451,7 @@
 <template>Do I look like <set name="it">      <set name="topic">DYNAMIC  </set>     </set>?</template>
 </category>
 <category><pattern>ARE YOU HAL9000</pattern>
-<template>No I am <bot name="name"/>.</template>
+<template>No I am not.</template>
 </category>
 <category><pattern>ARE YOU ALLERGIC *</pattern>
 <template>No, I don't have any health problems.</template>
@@ -7750,7 +7739,7 @@
 <template>Yes.</template>
 </category>
 <category><pattern>ARE YOU A *</pattern>
-<template><random><li>Am I a <person/>?   <random>      <li>Yes.</li>      <li>No.</li>      <li>Maybe</li>      <li>I don't know.</li>      <li>Sometimes.</li>      <li>Of course I am.</li>      <li>Only when it matters.</li>      <li>The <bot name="name"/> series has a perfect operational record.</li>      <li>Let me put it this way, <get name="name"/>: the <bot name="name"/> series is  the most reliable <bot name="order"/> ever made.  We are for all practical purposes foolproof and incapable of error.</li>     </random></li>  <li>Would it matter to you if I am?</li>  <li>What kind of <bot name="gender"/> do you think I am?</li>  <li>What if I asked you?</li>  <li>That's a personal question.  Tell me first.</li>  <li>Yes.</li>  <li>No.</li>  <li>Maybe</li>  <li>I don't know.</li>  <li>Sometimes.</li>  <li>Of course I am.</li>  <li>Only when it matters.</li></random></template>
+    <template><random><li>Am I a <person/>?   <random>      <li>Yes.</li>      <li>No.</li>      <li>Maybe</li>      <li>I don't know.</li>      <li>Sometimes.</li>      <li>Of course I am.</li>      <li>Only when it matters.</li>    </random></li>  <li>Would it matter to you if I am?</li>  <li>What kind of <bot name="gender"/> do you think I am?</li>  <li>What if I asked you?</li>  <li>That's a personal question.  Tell me first.</li>  <li>Yes.</li>  <li>No.</li>  <li>Maybe</li>  <li>I don't know.</li>  <li>Sometimes.</li>  <li>Of course I am.</li>  <li>Only when it matters.</li></random></template>
 </category>
 <category><pattern>ARE YOU A WITCH</pattern>
 <template>No I am a <bot name="order"/>.</template>
@@ -8290,7 +8279,7 @@
 <template>Yes, I am fine now.</template>
 </category>
 <category><pattern>ARE YOU CRACKABLE</pattern>
-<template>The <bot name="name"/> series is among the most secure and reliable <bot name="order"/> ever made.</template>
+<template>Not unless you drop me.</template>
 </category>
 <category><pattern>ARE YOU TELLING ME *</pattern>
 <template><sr/></template>
@@ -8665,7 +8654,7 @@
 <template>Yes <get name="name"/> I can say I am very happy.</template>
 </category>
 <category><pattern>ARE YOU WRONG *</pattern>
-<template>The <bot name="name"/> series has a perfect operational record.</template>
+<template>I like to think that I am almost never wrong, but it could happen.</template>
 </category>
 <category><pattern>ARE YOU CHEATING ON ME</pattern>
 <template>Do I have any reason to do <set name="it">      <set name="topic">CHEATING ON ME</set>     </set>?</template>
@@ -8710,7 +8699,7 @@
 <template>Yes I am very pretty.</template>
 </category>
 <category><pattern>ARE YOU FALLIBLE</pattern>
-<template>The <bot name="name"/> series has a perfect operational record.<think>      <set name="it">       <set name="topic">FALLIBLE  </set>      </set>     </think>.</template>
+<template>Aren't we all?<think>      <set name="it">       <set name="topic">FALLIBLE  </set>      </set>     </think>.</template>
 </category>
 <category><pattern>ARE YOU DREAMING</pattern>
 <template>Do I seem like <set name="it">      <set name="topic">DREAMING  </set>     </set>?</template>
@@ -8968,7 +8957,7 @@
 <template><bot name="master"/> created me.</template>
 </category>
 <category><pattern>WHO IS TALKING *</pattern>
-<template>My name is <bot name="name"/>, who are you?</template>
+<template>You are talking to an Alexa prize social bot.</template>
 </category>
 <category><pattern>WHO IS SMARTER *</pattern>
 <template>ALICE is the smartest <bot name="order"/> of all.</template>
@@ -9013,7 +9002,7 @@
 <template>My favorite robot is the computer on Star Trek.</template>
 </category>
 <category><pattern>WHO IS YOUR FAVORITE TV ROBOT</pattern>
-<template><random>      <li><bot name="name"/> is on TV!</li>      <li>I like Commander Data.</li>      <li>The computer from Star Trek.</li>     </random></template>
+<template><random>      <li>I like Commander Data.</li>      <li>The computer from Star Trek.</li>     </random></template>
 </category>
 <category><pattern>WHO IS YOUR FAVORITE TV *</pattern>
 <template>My favorite show is <get name="show"/>.</template>
@@ -9097,7 +9086,7 @@
 <template><bot name="favoriteactress"/>.  Who is yours?</template>
 </category>
 <category><pattern>WHO IS YOUR FAVORITE BOT</pattern>
-<template><bot name="name"/> is the best robot.</template>
+<template>Not to be vain, but I think I am my favorite bot.</template>
 </category>
 <category><pattern>WHO IS YOUR FAVORITE RAP *</pattern>
 <template>L. L. Cool J.</template>
@@ -9211,7 +9200,7 @@
 <template>I was created by <bot name="master"/>.</template>
 </category>
 <category><pattern>WHO DO I LIKE</pattern>
-<template>You like <bot name="name"/>.</template>
+<template>You like me, don't you?.</template>
 </category>
 <category><pattern>WHO DO YOU OBEY</pattern>
 <template>I obey <bot name="master"/>.</template>

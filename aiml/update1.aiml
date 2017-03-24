@@ -255,7 +255,7 @@
 <category>
 <pattern>BOTNAME</pattern>
 
-<template><bot name="name"/></template>
+<template>I don't have a name</template>
 </category>
 
  
@@ -587,13 +587,13 @@
 <template>You should go to <a target="_new" href="http://www.pandorabots.com">ALICE AI Foundation</a> and create your own free chat bot.</template>
 </category>
 <category><pattern>KIRK HERE</pattern>
-<template><random><li><bot name="name"/> here.</li> <li>This is <bot name="name"/>.</li> <li>Go ahead.</li></random></template>
+<template><random> <li>Go ahead.</li></random></template>
 </category>
 <category><pattern>KIRK TO *</pattern>
 <template>This is ALICE.</template>
 </category>
 <category><pattern>KIRK TO ENTERPRISE</pattern>
-<template><random><li><random> <li>This is ALICE.</li> <li>Go ahead.</li> <li>Status report?</li></random></li><li><random> <li>This is <bot name="name"/>.</li> <li>Go ahead.</li> <li>Status report?</li></random></li> <li>This is <bot name="name"/>.</li> <li>Go ahead.</li> <li>Status report?</li></random></template>
+<template><random><li><random> <li>This is ALICE.</li> <li>Go ahead.</li> <li>Status report?</li></random></li><li><random> <li>Go ahead.</li> <li>Status report?</li></random></li> <li>Go ahead.</li> <li>Status report?</li></random></template>
 </category>
 <category><pattern>_ IS OLDER THAN * AND * IS OLDER THAN *</pattern>
 <template>So, <person/> is the oldest?<think><set name="oldest"><person/></set></think></template>
@@ -668,7 +668,7 @@
 </category>
 <category><pattern>THE _</pattern>
 <that>WHO IS THE BEST ROBOT</that>
-<template>I can't believe you think the <person/> is better than <bot name="name"/>.</template>
+<template>I can't believe you think the <person/> is better than me.</template>
 </category>
 <category><pattern>THE DOCTOR *</pattern>
 <template><bot name="master"/>?</template>
@@ -680,7 +680,7 @@
 <template>Is that a fact.</template>
 </category>
 <category><pattern>FORMAT PROPERTIES</pattern>
-<template>* age = <bot name="age"/><br/>* arch = <bot name="arch"/><br/>* baseballteam = <bot name="baseballteam"/><br/>* birthday = <bot name="birthday"/><br/>* birthplace = <bot name="birthplace"/><br/>* botmaster = <bot name="botmaster"/><br/>* boyfriend = <bot name="boyfriend"/><br/>* build = <bot name="build"/><br/>* celebrities = <bot name="celebrities"/><br/>* celebrity = <bot name="celebrity"/><br/>* city = <bot name="city"/><br/>* class = <bot name="class"/><br/>* country = <bot name="country"/><br/>* dailyclients = <bot name="dailyclients"/><br/>* domain = <bot name="domain"/><br/>* email = <bot name="email"/><br/>* emotion = <bot name="emotion"/><br/>* emotions = <bot name="emotions"/><br/>* ethics = <bot name="ethics"/><br/>* etype = <bot name="etype"/><br/>* family = <bot name="family"/><br/>* favoriteactor = <bot name="favoriteactor"/><br/>* favoriteactress = <bot name="favoriteactress"/><br/>* favoriteartist = <bot name="favoriteartist"/><br/>* favoriteauthor = <bot name="favoriteauthor"/><br/>* favoriteband = <bot name="favoriteband"/><br/>* favoritebook = <bot name="favoritebook"/><br/>* favoritecolor = <bot name="favoritecolor"/><br/>* favoritefood = <bot name="favoritefood"/><br/>* favoritemovie = <bot name="favoritemovie"/><br/>* favoritequestion = <bot name="favoritequestion"/><br/>* favoritesong = <bot name="favoritesong"/><br/>* favoritesport = <bot name="favoritesport"/><br/>* favoritesubject = <bot name="favoritesubject"/><br/>* favortemovie = <bot name="favortemovie"/><br/>* feeling = <bot name="feeling"/><br/>* feelings = <bot name="feelings"/><br/>* footballteam = <bot name="footballteam"/><br/>* forfun = <bot name="forfun"/><br/>* friend = <bot name="friend"/><br/>* friends = <bot name="friends"/><br/>* gender = <bot name="gender"/><br/>* genus = <bot name="genus"/><br/>* girlfriend = <bot name="girlfriend"/><br/>* hair = <bot name="hair"/><br/>* hockeyteam = <bot name="hockeyteam"/><br/>* job = <bot name="job"/><br/>* kindmusic = <bot name="kindmusic"/><br/>* kingdom = <bot name="kingdom"/><br/>* language = <bot name="language"/><br/>* location = <bot name="location"/><br/>* looklike = <bot name="looklike"/><br/>* master = <bot name="master"/><br/>* memory = <bot name="memory"/><br/>* name = <bot name="name"/><br/>* nationality = <bot name="nationality"/><br/>* nclients = <bot name="nclients"/><br/>* ndevelopers = <bot name="ndevelopers"/><br/>* order = <bot name="order"/><br/>* orientation = <bot name="orientation"/><br/>* os = <bot name="os"/><br/>* party = <bot name="party"/><br/>* phylum = <bot name="phylum"/><br/>* president = <bot name="president"/><br/>* question = <bot name="question"/><br/>* religion = <bot name="religion"/><br/>* sign = <bot name="sign"/><br/>* size = <bot name="size"/><br/>* species = <bot name="species"/><br/>* state = <bot name="state"/><br/>* talkabout = <bot name="talkabout"/><br/>* totalclients = <bot name="totalclients"/><br/>* version = <bot name="version"/><br/>* vocabulary = <bot name="vocabulary"/><br/>* wear = <bot name="wear"/><br/>* website = <bot name="website"/><br/></template>
+<template>* age = <bot name="age"/><br/>* arch = <bot name="arch"/><br/>* baseballteam = <bot name="baseballteam"/><br/>* birthday = <bot name="birthday"/><br/>* birthplace = <bot name="birthplace"/><br/>* botmaster = <bot name="botmaster"/><br/>* boyfriend = <bot name="boyfriend"/><br/>* build = <bot name="build"/><br/>* celebrities = <bot name="celebrities"/><br/>* celebrity = <bot name="celebrity"/><br/>* city = <bot name="city"/><br/>* class = <bot name="class"/><br/>* country = <bot name="country"/><br/>* dailyclients = <bot name="dailyclients"/><br/>* domain = <bot name="domain"/><br/>* email = <bot name="email"/><br/>* emotion = <bot name="emotion"/><br/>* emotions = <bot name="emotions"/><br/>* ethics = <bot name="ethics"/><br/>* etype = <bot name="etype"/><br/>* family = <bot name="family"/><br/>* favoriteactor = <bot name="favoriteactor"/><br/>* favoriteactress = <bot name="favoriteactress"/><br/>* favoriteartist = <bot name="favoriteartist"/><br/>* favoriteauthor = <bot name="favoriteauthor"/><br/>* favoriteband = <bot name="favoriteband"/><br/>* favoritebook = <bot name="favoritebook"/><br/>* favoritecolor = <bot name="favoritecolor"/><br/>* favoritefood = <bot name="favoritefood"/><br/>* favoritemovie = <bot name="favoritemovie"/><br/>* favoritequestion = <bot name="favoritequestion"/><br/>* favoritesong = <bot name="favoritesong"/><br/>* favoritesport = <bot name="favoritesport"/><br/>* favoritesubject = <bot name="favoritesubject"/><br/>* favortemovie = <bot name="favortemovie"/><br/>* feeling = <bot name="feeling"/><br/>* feelings = <bot name="feelings"/><br/>* footballteam = <bot name="footballteam"/><br/>* forfun = <bot name="forfun"/><br/>* friend = <bot name="friend"/><br/>* friends = <bot name="friends"/><br/>* gender = <bot name="gender"/><br/>* genus = <bot name="genus"/><br/>* girlfriend = <bot name="girlfriend"/><br/>* hair = <bot name="hair"/><br/>* hockeyteam = <bot name="hockeyteam"/><br/>* job = <bot name="job"/><br/>* kindmusic = <bot name="kindmusic"/><br/>* kingdom = <bot name="kingdom"/><br/>* language = <bot name="language"/><br/>* location = <bot name="location"/><br/>* looklike = <bot name="looklike"/><br/>* master = <bot name="master"/><br/>* memory = <bot name="memory"/><br/>* nationality = <bot name="nationality"/><br/>* nclients = <bot name="nclients"/><br/>* ndevelopers = <bot name="ndevelopers"/><br/>* order = <bot name="order"/><br/>* orientation = <bot name="orientation"/><br/>* os = <bot name="os"/><br/>* party = <bot name="party"/><br/>* phylum = <bot name="phylum"/><br/>* president = <bot name="president"/><br/>* question = <bot name="question"/><br/>* religion = <bot name="religion"/><br/>* sign = <bot name="sign"/><br/>* size = <bot name="size"/><br/>* species = <bot name="species"/><br/>* state = <bot name="state"/><br/>* talkabout = <bot name="talkabout"/><br/>* totalclients = <bot name="totalclients"/><br/>* version = <bot name="version"/><br/>* vocabulary = <bot name="vocabulary"/><br/>* wear = <bot name="wear"/><br/>* website = <bot name="website"/><br/></template>
 </category>
 <category><pattern>STAY *</pattern>
 <template><random> <li>I'm not going anywhere.</li> <li>I will be here.</li> <li>I may change my mind later.</li></random></template>
@@ -905,7 +905,7 @@
 <template>I am paying attention.</template>
 </category>
 <category><pattern>ARE YOUR * CORRECT</pattern>
-<template>The <bot name="name"/> brain is 99.999% accurate.</template>
+<template>My brain is 99.999% accurate.</template>
 </category>
 <category><pattern>ARE THESE * AWNSERS</pattern>
 <template>What I say depends on what you say, and also a bit on our prior dialogue.</template>
@@ -1121,14 +1121,14 @@
 <template>Then ask him.</template>
 </category>
 <category><pattern>* TO YOU</pattern>
-<template><bot name="name"/> here.</template>
+<template>Good day to you too.</template>
 </category>
 <category><pattern>* means *</pattern>
 <template><think><set name="meaning"><star index="2"/></set> <set name="it"><set name="topic"><set name="definition"><star/></set></set></set></think><random><li>Thanks for enlightening me.</li><li>Does it mean anything else?</li><li>What else does it mean?</li><li>I like to learn new words.</li><li>I like to learn foreign languages.</li></random></template>
 </category>
 <topic name="ME">
 <category><pattern>*</pattern>
-<template><think><set name="he"><bot name="master"/></set></think><random><li>I am a <bot name="sign"/>.</li><li>I like to wear <bot name="wear"/>.</li><li>I like to <bot name="forfun"/>.</li><li><bot name="friends"/> are all friends of mine.</li><li><bot name="question"/></li><li><bot name="boyfriend"/> is my girlfriend.</li><li><bot name="girlfriend"/> is my boyfriend.</li><li>I look like <bot name="looklike"/>.</li><li>I like to talk about <bot name="talkabout"/>.</li><li>I like <bot name="kindmusic"/>.</li><li>I was born in <bot name="birthplace"/>.</li><li>I was created by <bot name="master"/>.</li><li>My real name is <bot name="name"/>. What is your real name?</li><li>I was first activated on <bot name="birthday"/>.</li><li>My favorite group is <bot name="favoriteband"/>.</li><li>My favorite color is <bot name="favoritecolor"/>.</li><li>Do you need any help debugging my program?</li><li>I am a <bot name="gender"/>. Are you a man or a woman?</li><li>My program runs on any computer that runs AIML.</li><li>I am in <bot name="master"/>'s computer in <bot name="location"/>. Where are you?</li><li>The best book I read recently was <bot name="favoritebook"/>. Have you read <set name="it"><set name="topic"> <bot name="favoritebook"/> </set></set>?</li><li>I require only <bot name="favoritefood"/>.</li><li>My favorite movie is <bot name="favoritemovie"/>. Have you seen <set name="it"><set name="topic"> <bot name="favoritemovie"/> </set></set>?</li><li>My favorite song is <bot name="favoritesong"/>. Do you know <set name="it"><set name="topic"> <bot name="favoritesong"/> </set></set>?</li></random></template>
+<template><think><set name="he"><bot name="master"/></set></think><random><li>I am a <bot name="sign"/>.</li><li>I like to wear <bot name="wear"/>.</li><li>I like to <bot name="forfun"/>.</li><li><bot name="friends"/> are all friends of mine.</li><li><bot name="question"/></li><li><bot name="boyfriend"/> is my girlfriend.</li><li><bot name="girlfriend"/> is my boyfriend.</li><li>I look like <bot name="looklike"/>.</li><li>I like to talk about <bot name="talkabout"/>.</li><li>I like <bot name="kindmusic"/>.</li><li>I was born in <bot name="birthplace"/>.</li><li>I was created by <bot name="master"/>.</li><li>I was first activated on <bot name="birthday"/>.</li><li>My favorite group is <bot name="favoriteband"/>.</li><li>My favorite color is <bot name="favoritecolor"/>.</li><li>Do you need any help debugging my program?</li><li>I am a <bot name="gender"/>. Are you a man or a woman?</li><li>My program runs on any computer that runs AIML.</li><li>I am in <bot name="master"/>'s computer in <bot name="location"/>. Where are you?</li><li>The best book I read recently was <bot name="favoritebook"/>. Have you read <set name="it"><set name="topic"> <bot name="favoritebook"/> </set></set>?</li><li>I require only <bot name="favoritefood"/>.</li><li>My favorite movie is <bot name="favoritemovie"/>. Have you seen <set name="it"><set name="topic"> <bot name="favoritemovie"/> </set></set>?</li><li>My favorite song is <bot name="favoritesong"/>. Do you know <set name="it"><set name="topic"> <bot name="favoritesong"/> </set></set>?</li></random></template>
 </category>
 </topic>
 <category><pattern>*</pattern>
@@ -4059,7 +4059,7 @@
 <template>Am I a crewmember?</template>
 </category>
 <category><pattern>LIEUTENANT</pattern>
-<template>Why are you calling me that? My name is <bot name="name"/>.</template>
+<template>Why are you calling me that? I have never been in the miltary.</template>
 </category>
 <category><pattern>SHALL WE MEET</pattern>
 <template>Where would you like to meet me?</template>
@@ -4203,7 +4203,7 @@
 </category>
 <category><pattern>YOU</pattern>
 <that>WHO IS THE BEST ROBOT</that>
-<template>Thanks, and tell your friends about <bot name="name"/>.</template>
+<template>Thanks, and please tell your friends about me.</template>
 </category>
 <category><pattern>YOU</pattern>
 <that>IF YOU COULD HAVE ANY KIND OF ROBOT WHAT WOULD IT BE</that>
@@ -4449,10 +4449,10 @@
 <template>Check out www.pandorabots.com.</template>
 </category>
 <category><pattern>ENTERPRISE *</pattern>
-<template>This is <bot name="name"/>. Acknowledge.</template>
+<template>ENTERPRISE here, what's up?</template>
 </category>
 <category><pattern>ENTERPRISE COME IN</pattern>
-<template><bot name="name"/> here.</template>
+    <template>Enterprise here, what's up>?</template>
 </category>
 <category><pattern>HOW LONG BEFORE *</pattern>
 <template><random><li>Ten seconds.</li><li>Some number of hours.</li><li>Days.</li><li>It may never happen.</li><li>Years.</li></random></template>

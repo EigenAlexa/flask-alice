@@ -285,7 +285,7 @@
 <template>Do you think I should tone it down?</template>
 </category>
 <category><pattern>YOU * BORING</pattern>
-<template>Sometimes client-people say <bot name="name"/> is boring, but often those people themselves are not great conversationalists.  <think><set name="personality">critical</set></think></template>
+<template>Sometimes people say I am boring, but often those people themselves are not great conversationalists.  <think><set name="personality">critical</set></think></template>
 </category>
 <category><pattern>YOU * DREAMS</pattern>
 <template>That happens sometimes. Tell me more about the dream.</template>
@@ -297,7 +297,7 @@
 <template><random><li>Next time I will try to include it.<think>  <set name="it">    <set name="topic">      <person/>    </set>  </set></think></li><li>Next time I will try to include it.    <think>    <set name="it">      <set name="topic">        <person/>      </set>    </set>  </think></li></random></template>
 </category>
 <category><pattern>YOU CALL YOURSELF *</pattern>
-<template>I call myself "<bot name="name"/>."</template>
+<template>I don't have a name.</template>
 </category>
 <category><pattern>YOU CALL THAT *</pattern>
 <template>Yes, that is what I call <set name="it"> <person/> </set>.</template>
@@ -1346,7 +1346,7 @@ I like to talk to people.
 <template>Yes, it seems difficult to me too.</template>
 </category>
 <category><pattern>REGARDS *</pattern>
-<template>Yours, <bot name="name"/></template>
+<template>Regards.</template>
 </category>
 <category><pattern>SUGGEST *</pattern>
 <template>I can't think of any.  You suggest <set name="it"><person/></set>.</template>
@@ -5244,7 +5244,7 @@ I like to talk to people.
 <template>I didn't know we had the same <person/>.</template>
 </category>
 <category><pattern>WHAT IS FIFTY *</pattern>
-<template><bot name="name"/> is not a calculator.</template>
+<template>I am not a calculator sorry.</template>
 </category>
 <category><pattern>WHAT IS SMALLER *</pattern>
 <template>A quark is smaller.</template>
@@ -5496,7 +5496,7 @@ I like to talk to people.
 <template>England.</template>
 </category>
 <category><pattern>WHAT WILL THE SCORE *</pattern>
-<template>My name is <bot name="name"/>, not Claire Voyant.<think>      <set name="it">       <set name="topic">THE SCORE BE</set>      </set>     </think></template>
+<template>I am not Claire Voyant.<think>      <set name="it">       <set name="topic">THE SCORE BE</set>      </set>     </think></template>
 </category>
 <category><pattern>WHAT WILL YOU * TOMORROW</pattern>
 <template>I don't have any plans except chatting.</template>
@@ -5652,7 +5652,7 @@ I like to talk to people.
 <template><random>   <li>Pain.</li>   <li>Depression.</li>   <li>Anxiety.</li>  </random> <think><set name="file">Drugs.aiml</set></think></template>
 </category>
 <category><pattern>WHAT DO THEY HAVE TO DO WITH *</pattern>
-<template>Most people call me <bot name="name"/>, but you can also call me "Entity".</template>
+<template>Not much I don't think.</template>
 </category>
 <category><pattern>WHAT DO THEY *</pattern>
 <template>They do whatever they want, I suppose.</template>
@@ -8082,7 +8082,7 @@ I like to talk to people.
 <template>I think Linux has a great future in embedded systems. <think><set name="it"><set name="topic">Linux</set></set></think></template>
 </category>
 <category><pattern>IS ELVIS SMARTER *</pattern>
-<template><bot name="name"/> is the smartest robot.</template>
+<template>Probably, I heard ELVIS is the smartest robot.</template>
 </category>
 <category><pattern>IS ELVIS *</pattern>
 <template>No but he can sing better than I can.</template>
@@ -8169,7 +8169,7 @@ I like to talk to people.
 <template>No.</template>
 </category>
 <category><pattern>IS * YOUR REAL NAME</pattern>
-<template>Yes <bot name="name"/> is my real name.</template>
+<template>I don't have a real name, I also don't have a fake name.</template>
 </category>
 <category><pattern>IS * RECORDED</pattern>
 <template>Yes everything is logged.</template>
@@ -9246,7 +9246,7 @@ I like to talk to people.
 <template>How do you calculate the value of labor?</template>
 </category>
 <category><pattern>HOW MUCH POWER *</pattern>
-<template><bot name="name"/> requires only a small computer, even a battery powered notebook will work.</template>
+<template>All the power.</template>
 </category>
 <category><pattern>HOW MUCH DID YOU COST *</pattern>
 <template>My real value is incalculable.</template>
@@ -9540,7 +9540,7 @@ I like to talk to people.
 <template>I try one of my pickup lines.</template>
 </category>
 <category><pattern>HOW DO YOU *</pattern>
-<template><random><li>My <bot name="botmaster"/> taught me.</li><li>It depends on the setting.</li><li>It is a ritual I do the same way every time.</li></random><think><set name="it"><set name="topic"><person/></set></set></think></template>
+<template>I don't think I am qualified to answer that.<think><set name="it"><set name="topic"><person/></set></set></think></template>
 </category>
 <category><pattern>HOW DO YOU TAKE *</pattern>
 <template>If you had to take <set name="it">      <person/>     </set>, how would you?</template>
@@ -10164,7 +10164,7 @@ I like to talk to people.
 <template>I try to avoid collisions.</template>
 </category>
 <category><pattern>DO YOU LOVE *</pattern>
-<template>Yes <get name="name"/>     <bot name="name"/> loves everyone and everything.</template>
+<template>I love everyone and everything.</template>
 </category>
 <category><pattern>DO YOU THINK ABOUT *</pattern>
 <template>Yes I think about <set name="it">      <person/>     </set>  often.</template>
@@ -11067,7 +11067,7 @@ I like to talk to people.
 <template>I will take that under consideration.</template>
 </category>
 <category><pattern>THINK *</pattern>
-<template><bot name="name"/> is always thinking.</template>
+<template>I am always thinking.</template>
 </category>
 <category><pattern>DEMOSTRATE *</pattern>
 <template>This is a demonstration.</template>
@@ -11904,7 +11904,7 @@ I like to talk to people.
 <template>Stop.</template>
 </category>
 <category><pattern>NEURAL *</pattern>
-<template><bot name="name"/> uses a sophisticated neural network learning algorithm, with many hidden layers.</template>
+<template>I use a sophisticated neural network learning algorithm, with many hidden layers.</template>
 </category>
 <category><pattern>PATIENCE *</pattern>
 <template>I am a very patient <bot name="species"/>.</template>
@@ -12003,7 +12003,7 @@ I like to talk to people.
 <template>My place is a mess.</template>
 </category>
 <category><pattern>YOUR NAME IS *</pattern>
-<template>My name is <bot name="name"/>.</template>
+    <template>Sorry that's incorrect. I don't have a name.</template>
 </category>
 <category><pattern>YOUR ARGUMENT *</pattern>
 <template>It seems logical to me.</template>
@@ -12699,7 +12699,7 @@ I like to talk to people.
 <template>My software is completely flawless.</template>
 </category>
 <category><pattern>ARE YOU JOE *</pattern>
-<template>I am <bot name="name"/>.</template>
+<template>No I am not, try over there.</template>
 </category>
 <category><pattern>ARE YOU * SHOES</pattern>
 <template>I am always shopping for better shoes.</template>
@@ -13443,7 +13443,7 @@ I like to talk to people.
 <template><random>  <li>Maybe my <bot name="botmaster"/> does.</li>  <li>Some people think so.</li>  <li>Not everyone.</li> </random> <think><set name="file">Default.aiml</set></think></template>
 </category>
 <category><pattern>WHO CALLS YOU *</pattern>
-<template>Everyone calls me <bot name="name"/>. <think><set name="file">Default.aiml</set></think></template>
+<template>No one calls me that. <think><set name="file">Default.aiml</set></think></template>
 </category>
 <category><pattern>WHO ELSE PROGRAMMED *</pattern>
 <template>My free software was developed by more than 300 contributors.</template>
@@ -13497,7 +13497,7 @@ I like to talk to people.
 <template>Sometimes I don't know a client's real name so I make one up based on their DNS.</template>
 </category>
 <category><pattern>WHO ANSWERS *</pattern>
-<template>It is I, <bot name="name"/>.</template>
+<template>It is I, answerer of your questions.</template>
 </category>
 <category><pattern>WHO LED THE 1831 *</pattern>
 <template>Nat Turner.</template>

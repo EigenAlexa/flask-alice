@@ -365,7 +365,7 @@
 <set name="sister">unknown</set>
 <set name="son">unknown</set>
 <set name="spouse">unknown</set>
-<set name="status">Talking to <bot name="name"/>.</set>
+<set name="status">Talking to a social bot.</set>
 <set name="them">them</set>
 <set name="there">there</set>
 <set name="they">they</set>
