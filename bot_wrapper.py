@@ -5,18 +5,37 @@ import time, random
 from utils import func_wrap, replace_localhost
 import threading
 
+class MessageHandlerThread(threading.Thread):
+    def __init__(self, bot):
+        threading.Thread.__init__(self, target=self.handle_message)
+        self.daemon = True
+        self.message_received = False
+        self.convo_updated = False
+        self.bot = bot
+    def handle_message(self):
+        while True:
+            while not self.convo_updated or not self.message_received:
+                pass
+            self.bot.restart_idler()
+            self.bot.respond()
+            self.message_received = False
+            self.convo_updated = False
+            self.run()
+
 class BotWrapper:
     def __init__(self, url, max_turns=10,callback=None, callback_params=1, msg_q=False):
         print('starting service')
-        self.start_proba = 0.85
+        self.start_proba = 1.0
         self.url = replace_localhost(url)
         self.bot = Alice()
         self.max_turns = max_turns
         self.sending_message = False
         self._id = None
         self.use_msg_q = msg_q # msg_q sets whether or not we are queueing messages
-        websocket = 'ws://%s/websocket' % self.url
-        self.client = MeteorClient(websocket)
+        self.websocket = 'ws://%s/websocket' % self.url
+        self.client = MeteorClient(self.websocket)
+        self.client.ddp_client.ddpsocket.extra_headers = [('Bot', 'true')]
+        print(self.client.ddp_client.ddpsocket.handshake_headers)
         self.client.connect()
 
         self.idle_time = 3 * 60
@@ -94,6 +113,7 @@ class BotWrapper:
     def subscribe(self, collection, params=[], callback=None):
         """ Wrapper for subscribe to avoid issues with already subscribed rooms """
         try:
+            print("subscribing to {}".format(collection))
             self.client.subscribe(collection, params, callback)
         except MeteorClientException:
             print('Already subscribed to {}. Running callback with None'.format(collection))
@@ -106,17 +126,22 @@ class BotWrapper:
         self.roomId = roomId
         self.msg_queue = []
         self.available = False
-
-        self.client.call('convos.addUserToRoom', params=[self._id, roomId], callback= func_wrap(
-            lambda : self.subscribe('chat', [roomId], func_wrap(
-                lambda : self.subscribe('msgs', [roomId], func_wrap(
-                    lambda : self.subscribe('currentUsers', [roomId], func_wrap(
-                        lambda: self.watch_room(roomId, callback)) )
-                    )
-                )
-            ) )
-        ))
-
+        def sub_callback(noneval=None):
+            currentConvo = self.client.find_one('convos', selector={"_id":roomId})
+            print("current convo: {}".format(currentConvo))
+            if currentConvo and not currentConvo['closed']:
+                self.client.call('convos.addUserToRoom', params=[self._id, roomId], callback= func_wrap(
+                    lambda : self.subscribe('chat', [roomId], func_wrap(
+                        lambda : self.subscribe('msgs', [roomId], func_wrap(
+                            lambda : self.subscribe('currentUsers', [roomId], func_wrap(
+                                lambda: self.watch_room(roomId, callback)) )
+                            )
+                        )
+                    ) )
+                ))
+            else:
+                self.end_convo()  
+        self.subscribe('openrooms', callback=sub_callback)
     def unsubscribe(self, collection):
         """ Unsubscribe from the collection """
         try:
@@ -137,12 +162,12 @@ class BotWrapper:
         self.client.call('users.exitConvo', [self._id]);
         self.client.call('convos.updateRatings', [self.roomId, self._id, 'not']);
         self.available = True
-        if self.idler_thread:
+        if hasattr(self, 'idler_thread') and self.idler_thread:
             self.idler_thread.cancel()
 
     def set_wpm(self):
         """ Set the words per minute of the bot """
-        wpm = random.randint(90,140)
+        wpm = random.randint(150,200)
         self.cps = 60 / (wpm * 5)
         print('Setting wpm : {} '.format(wpm))
 
@@ -171,6 +196,7 @@ class BotWrapper:
 
         self.last_message = ""
         self.confirmed_messages = [] # all messages sent by the user that have been confirmed
+        self.thread = MessageHandlerThread(self)
         def message_added(collection, id, fields):
             """ callback for when a message is added """
             if (collection == 'messages' and 'message' in fields and 'user' in fields):
@@ -179,6 +205,7 @@ class BotWrapper:
                     self.restart_idler()
                     self.receive_message(fields['message'])
                     self.last_message = fields['message']
+                    self.thread.message_received = True
                 elif fields['user'] == self._id:
                     print('\t messages from self detected')
                     self.confirmed_messages.append(fields['message'])
@@ -196,7 +223,7 @@ class BotWrapper:
                 if 'msgs' in fields:
                     print('\tMessages updated in convo "{}"'.format(id))
                     # TODO this is bugggy
-                    self.respond()
+                    self.thread.convo_updated = True
                 if 'turns' in fields:
                     print('\tTurns updated to "{}"'.format(fields['turns']))
                     self.turns = fields['turns']
@@ -208,16 +235,21 @@ class BotWrapper:
         self.client.call('convos.makeReady', [roomId, self._id])
         self.restart_idler()
         self.prime_bot(convo_obj)
+        print("before thread")
+        self.thread.start()
+        print("after thread")
 
         if callback:
             callback(None)
 
     def respond(self):
         """ Kind of a hacky way to respond to the conversation """
+        print("responding")
         if self.msg_queue and self.use_msg_q:
             partner_msg = self.msg_queue[0]
             self.msg_queue = self.msg_queue[1:]
             msg = self.bot.message(partner_msg, self.roomId)
+            print(msg)
             self.send_message(msg)
 
         if self.msg_queue and not self.sending_message:
