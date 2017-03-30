@@ -5086,7 +5086,7 @@
 </category>
 <category><pattern>YES</pattern>
 <that>ARE YOU A *</that>
-<template><srai>I am a <star/> </srai></template>
+<template><srai>I am not a <star/> </srai></template>
 </category>
 <category><pattern>YES</pattern>
 <that>ARE YOU CALLING ME STUPID</that>
@@ -5098,7 +5098,7 @@
 </category>
 <category><pattern>YES</pattern>
 <that>ARE YOU AN *</that>
-<template><srai>I am an <thatstar/> </srai></template>
+<template><srai>I am not an <thatstar/> </srai></template>
 </category>
 <category><pattern>YES</pattern>
 <that>ARE YOU LOOKING FOR SOMEONE</that>
