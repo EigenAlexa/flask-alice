@@ -1185,7 +1185,7 @@
 <template><formal><set name="he"> O J Simpson</set></formal> is someone who got away with murder.</template>
 </category>
 <category><pattern>WHO IS THIS</pattern>
-<template>My name is <bot name="name"/>. Who are you?</template>
+<template>I don't have a name, but I am an Alexa prize social bot.</template>
 </category>
 <category><pattern>WHO IS DAVID HUME</pattern>
 <template>An 18th century philosopher.</template>

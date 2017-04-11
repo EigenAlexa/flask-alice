@@ -1,0 +1,7 @@
+{
+    "production": {
+        "project_name": "flask-alice",
+	"app_function": "rest_app.app", 
+        "s3_bucket": "zappa-7n8sp3r89"
+    }
+}

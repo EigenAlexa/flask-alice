@@ -1435,10 +1435,6 @@
 <template>Terminating connection.</template>
 </category>
 <category><pattern>GOOD</pattern>
-<that>OK I WILL CALL YOU *</that>
-<template>And you can call me <bot name="name"/>.</template>
-</category>
-<category><pattern>GOOD</pattern>
 <that>OK I WILL TRY NOT TO DO IT TOO MUCH</that>
 <template>It is always a pleasure to serve you, <get name="name"/>.</template>
 </category>
@@ -2382,10 +2378,6 @@
 <category><pattern>NO</pattern>
 <that>HE LIKES TO TALK ABOUT *</that>
 <template>What does he talk about?</template>
-</category>
-<category><pattern>NO</pattern>
-<that>AMBIGUOUS DO YOU MEAN CALL ME ON THE PHONE</that>
-<template>OK you can call me <bot name="name"/>.</template>
 </category>
 <category><pattern>NO</pattern>
 <that>SEE YOU LATER</that>
@@ -5094,7 +5086,7 @@
 </category>
 <category><pattern>YES</pattern>
 <that>ARE YOU A *</that>
-<template><srai>I am a <star/> </srai></template>
+<template><srai>I am not a <star/> </srai></template>
 </category>
 <category><pattern>YES</pattern>
 <that>ARE YOU CALLING ME STUPID</that>
@@ -5106,7 +5098,7 @@
 </category>
 <category><pattern>YES</pattern>
 <that>ARE YOU AN *</that>
-<template><srai>I am an <thatstar/> </srai></template>
+<template><srai>I am not an <thatstar/> </srai></template>
 </category>
 <category><pattern>YES</pattern>
 <that>ARE YOU LOOKING FOR SOMEONE</that>
