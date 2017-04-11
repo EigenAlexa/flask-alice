@@ -23,9 +23,10 @@ class MessageHandlerThread(threading.Thread):
             self.run()
 
 class BotWrapper:
-    def __init__(self, url, max_turns=10,callback=None, callback_params=1, msg_q=False):
+    def __init__(self, url, magic_phrase, max_turns=10,callback=None, callback_params=1, msg_q=False):
         print('starting service')
         self.start_proba = 1.0
+        self.magic_phrase = magic_phrase
         self.url = replace_localhost(url)
         self.bot = Alice()
         self.max_turns = max_turns
@@ -130,7 +131,7 @@ class BotWrapper:
             currentConvo = self.client.find_one('convos', selector={"_id":roomId})
             print("current convo: {}".format(currentConvo))
             if currentConvo and not currentConvo['closed']:
-                self.client.call('convos.addUserToRoom', params=[roomId], callback= func_wrap(
+                self.client.call('convos.addUserToRoom', params=[roomId, self.magic_phrase], callback= func_wrap(
                     lambda : self.subscribe('chat', [roomId], func_wrap(
                         lambda : self.subscribe('msgs', [roomId], func_wrap(
                             lambda : self.subscribe('currentUsers', [roomId], func_wrap(
@@ -232,7 +233,6 @@ class BotWrapper:
 
         self.client.on('changed', watch_convo)
         # mark the bot as ready to talk
-        self.client.call('convos.makeReady', [roomId])
         self.restart_idler()
         self.prime_bot(convo_obj)
         print("before thread")

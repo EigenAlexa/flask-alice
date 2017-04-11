@@ -88,7 +88,8 @@ def get_new_login(server_url, callback=None):
 
 def make_new_bot(server_url, callback=None):
     ''' make a new bot connected to the server url '''
-    bot = BotWrapper(server_url)
+    global magic_phrase
+    bot = BotWrapper(server_url, magic_phrase[0])
 
     def login_callback(error, data):
         if (error):
