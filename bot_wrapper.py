@@ -78,38 +78,37 @@ class BotWrapper:
     def logout(self):
         self.client.logout()
 
-    def find_and_join_room(self):
-        """ Finds a room and joins it """
-        self.find_room(callback=(lambda roomId : self.join_room(roomId)))
-
-    def find_room(self, callback=None):
-        print('looking for an open room')
-        def room_callback():
-            print('looking for a room')
-            user = self.client.find_one('users')
-            print('user dict',user.items())
-            if user["in_convo"]:
-                roomObj = user["curConvo"]
-                print('roomid: ', roomObj)
-            else:
-                openrooms = self.client.find('convos') # {curSessions : {$lt  :2}}
-                roomObj = openrooms[0] if openrooms and len(openrooms) > 0 else -1
-
-            # TODO may have issues with room id when user is in convo
-            if roomObj != -1:
-                if type(roomObj) == str:
-                    print(roomObj, 'room')
-                    print('openrooms', openrooms)
-                callback(roomObj['_id'])
-                # Add user to room
-
-            else:
-                print('No rooms found. Back to the bat cave')
-        self.subscribe('openrooms', callback=func_wrap(
-            lambda : self.subscribe('currentUser',params=[], callback=func_wrap(
-                lambda : room_callback()
-            )
-        )))
+#    def find_and_join_room(self):
+#        """ Finds a room and joins it """
+#        self.find_room(callback=(lambda roomId : self.join_room(roomId)))
+#
+#    def find_room(self, callback=None):
+#        print('looking for an open room')
+#        def room_callback():
+#            print('looking for a room')
+#            user = self.client.find_one('users')
+#            print('user dict',user.items())
+#            if user["in_convo"]:
+#                roomObj = user["curConvo"]
+#                print('roomid: ', roomObj)
+#            else:
+#                openrooms = self.client.find('convos') # {curSessions : {$lt  :2}}
+#                roomObj = openrooms[0] if openrooms and len(openrooms) > 0 else -1
+#
+#            # TODO may have issues with room id when user is in convo
+#            if roomObj != -1:
+#                if type(roomObj) == str:
+#                    print(roomObj, 'room')
+#                    print('openrooms', openrooms)
+#                callback(roomObj['_id'])
+#                # Add user to room
+#
+#            else:
+#                print('No rooms found. Back to the bat cave')
+#        self.subscribe('currentUser',params=[], callback=func_wrap(
+#            lambda : room_callback()
+#            )
+#        )
 
     def subscribe(self, collection, params=[], callback=None):
         """ Wrapper for subscribe to avoid issues with already subscribed rooms """
@@ -121,28 +120,29 @@ class BotWrapper:
             if callback:
                 callback(None)
 
-    def join_room(self, roomId, callback=None):
+    def join_room(self, roomId, otherUserId, callback=None):
         """ Join a room based on roomId """
         print ('join room with id', roomId)
         self.roomId = roomId
         self.msg_queue = []
         self.available = False
-        def sub_callback(noneval=None):
-            currentConvo = self.client.find_one('convos', selector={"_id":roomId})
-            print("current convo: {}".format(currentConvo))
-            if currentConvo and not currentConvo['closed']:
-                self.client.call('convos.addUserToRoom', params=[roomId, self.magic_phrase], callback= func_wrap(
-                    lambda : self.subscribe('chat', [roomId], func_wrap(
-                        lambda : self.subscribe('msgs', [roomId], func_wrap(
-                            lambda : self.subscribe('currentUsers', [roomId], func_wrap(
-                                lambda: self.watch_room(roomId, callback)) )
-                            )
-                        )
-                    ) )
+        self.client.call('convos.addUserToRoom', params=[roomId, self.magic_phrase], callback= func_wrap(
+            lambda : self.subscribe('chat', [roomId], func_wrap(
+                lambda : self.subscribe('msgs', [roomId], func_wrap(
+                    lambda : self.subscribe('currentUsers', [roomId], func_wrap(
+                        lambda: self.watch_room(roomId, func_wrap(
+                            lambda: self.send_ready(roomId, otherUserId, callback)
+                        ))
+                    ))
                 ))
-            else:
-                self.end_convo()  
-        self.subscribe('openrooms', callback=sub_callback)
+            ))
+        ))
+
+    def send_ready(self, roomId, otherUserId, callback=None):
+        self.client.call('convos.botReady', params=[roomId, otherUserId,
+                                                    self.magic_phrase],
+                                            callback = callback)
+
     def unsubscribe(self, collection):
         """ Unsubscribe from the collection """
         try:

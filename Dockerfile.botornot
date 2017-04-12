@@ -2,9 +2,10 @@ FROM ubuntu:latest
 MAINTAINER James Bartlett "james@ml.berkeley.edu"
 RUN apt-get update -y
 RUN apt-get install -y python-pip python-dev build-essential libssl-dev libffi-dev
-COPY . /app
+COPY ./requirements.txt /app/requirements.txt
 WORKDIR /app
 RUN pip install -r requirements.txt
+COPY . /app
 CMD ["/bin/bash", "start-bot-server.sh"]
 EXPOSE 5000
 
