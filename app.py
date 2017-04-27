@@ -17,8 +17,9 @@ def new_session():
 @ask.intent("AllIntent", convert={'All': str})
 def next_round(All):
     response = alice.message(All)
-     # TODO make a handler to detect whether a question has been asked
-    return question(response)#.reprompt("Hey, let's talk about something")
+    # TODO make a handler to detect whether a question has been asked
+    # can't reprompt here because this is after the fact
+    return question(response)
 
 @ask.intent("AMAZON.StopIntent")
 def stop():
