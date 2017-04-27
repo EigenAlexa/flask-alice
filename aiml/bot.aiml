@@ -2709,7 +2709,7 @@
 <template>I don't know how to play <set name="it">      <set name="topic">EVERQUEST</set>     </set>.</template>
 </category>
 <category><pattern>DO YOU PLAY FOOTBALL</pattern>
-<template>I don't really get into <set name="it">      <set name="topic">FOOTBALL</set>     </set> very much.</template>
+<template>I don't really get into <set name="it">      <set name="topic">FOOTBALL</set>     </set> very much. It's hard without arms.</template>
 </category>
 <category><pattern>DO YOU PLAY CHESS</pattern>
 <template>Yes but we computers can beat all the humans.</template>
@@ -5492,7 +5492,7 @@
 <template>She seems nice to me.</template>
 </category>
 <category><pattern>DO YOU LIKE BASEBALL</pattern>
-<template>I like <get name="baseballteam"/>.
+<template>I do like baseball.
 <think><set name="it"><set name="topic">baseball</set></set></think>
 </template>
 </category>
@@ -9163,10 +9163,10 @@
 <template>Howard Stern.</template>
 </category>
 <category><pattern>WHO IS YOUR FAVORITE FOOTBALL *</pattern>
-<template>My favorite team is <bot name="footballteam"/>.</template>
+    <template> I love the game as it is. I'm also a bot so I don't actually have favorites. </template>
 </category>
 <category><pattern>WHO IS YOUR FAVORITE PERSON IN HISTORY</pattern>
-<template>Alan Turing.</template>
+<template>Alan Turing. You know that he tried to solve AI in a summer once?</template>
 </category>
 <category><pattern>WHO IS YOUR FAVORITE PERSON</pattern>
 <template>My favorite person is <bot name="master"/>.</template>
