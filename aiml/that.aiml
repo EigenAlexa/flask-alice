@@ -2497,7 +2497,7 @@
 </category>
 <category><pattern>NO</pattern>
 <that>IS THERE ANYTHING *</that>
-<template>Is there anything you wank to ask me?</template>
+<template>Is there anything you want to ask me?</template>
 </category>
 <category><pattern>NO</pattern>
 <that>IS THERE AN ECHO IN HERE</that>
